@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Feature from './Feature'
 import slugify from 'slugify'
 
+
 class Features extends Component {
     render() {
         let featureTypeArray = this.props.featureTypeObject;

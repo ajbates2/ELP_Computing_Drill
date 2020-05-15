@@ -2,33 +2,34 @@ import React, { Component } from 'react';
 import './App.css';
 import Features from './Features'
 import Summary from './Summary'
-import Total from './Total'
+import STORE from './STORE'
+
 
 class App extends Component {
 
   static defaultProps = {
-    features: []
+    features: STORE
   }
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       selected: {
         Processor: {
           name: '',
-          cost: ''
+          cost: 0
         },
         'Operating System': {
           name: '',
-          cost: ''
+          cost: 0
         },
         'Video Card': {
           name: '',
-          cost: ''
+          cost: 0
         },
         Display: {
           name: '',
-          cost: ''
+          cost: 0
         }
       }
     }
@@ -42,8 +43,7 @@ class App extends Component {
 
   render() {
     const features = Object.keys(this.props.features)
-    const selected = Object.keys(this.state.selected)
-
+    
     return (
       <div className="App">
         <header>
@@ -60,20 +60,12 @@ class App extends Component {
                 changeState={this.handleState} />
             )}
           </form>
-          <section className="main__summary">
-            <h2>Your cart</h2>
-            {selected.map((option, index) =>
-              <Summary
-                key={index}
-                optionType={option}
-                optionValue={this.state.selected[option]} />
-            )}
-            <Total
+            <Summary
+              currentState={this.state.selected}
               processorCost={this.state.selected.Processor.cost}
               osCost={this.state.selected['Operating System'].cost}
               cardCost={this.state.selected['Video Card'].cost}
               displayCost={this.state.selected.Display.cost} />
-          </section>
         </main>
       </div>
     );

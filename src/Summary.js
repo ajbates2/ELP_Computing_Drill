@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-
-let USCurrencyFormat = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD"
-});
+import Options from './Options'
+import Total from './Total'
 
 class Summary extends Component {
-    static defaultProps = {
-        optionValue: {}
-    };
+    
     render() {
+        const selected = Object.keys(this.props.currentState)
+
         return (
-            <>
-                <div className="summary__option__label">{this.props.optionType}</div>
-                <div className="summary__option__value">
-                    {this.props.optionValue.name}
-                </div>
-                <div className="summary__option__cost">
-                    {USCurrencyFormat.format(this.props.optionValue.cost)}
-                </div>
-            </>
+            <section className="main__summary">
+                <h2>Your cart</h2>
+                {selected.map((option, index) =>
+                    <Options
+                        key={index}
+                        optionType={option}
+                        optionValue={this.props.currentState[option]} />
+                )}
+                <Total
+                    processorCost={this.props.processorCost}
+                    osCost={this.props.osCost}
+                    cardCost={this.props.cardCost}
+                    displayCost={this.props.displayCost} />
+            </section>
         );
     }
 }

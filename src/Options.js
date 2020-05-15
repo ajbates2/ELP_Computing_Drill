@@ -6,14 +6,18 @@ let USCurrencyFormat = new Intl.NumberFormat("en-US", {
 });
 
 class Options extends Component {
+    static defaultProps = {
+        optionValue: {}
+    };
     render() {
         return (
             <>
+                <div className="summary__option__label">{this.props.optionType}</div>
                 <div className="summary__option__value">
-                    {this.props.selectedOption.name}
+                    {this.props.optionValue.name}
                 </div>
                 <div className="summary__option__cost">
-                    {USCurrencyFormat.format(this.props.selectedOption.cost)}
+                    {USCurrencyFormat.format(this.props.optionValue.cost)}
                 </div>
             </>
         );
